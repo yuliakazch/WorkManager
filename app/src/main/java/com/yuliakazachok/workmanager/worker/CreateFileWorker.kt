@@ -3,6 +3,9 @@ package com.yuliakazachok.workmanager.worker
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
+import com.yuliakazachok.workmanager.DATA_KEY
+import com.yuliakazachok.workmanager.TIME_KEY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -22,11 +25,14 @@ class CreateFileWorker(appContext: Context, params: WorkerParameters) : Coroutin
 
     override suspend fun doWork(): Result =
         withContext(Dispatchers.IO) {
+            val data = inputData.getString(DATA_KEY) ?: ""
+
             delay(DELAY_TIME_MILLIS)
 
             try {
-                createFile(applicationContext, getFormattedTime())
-                Result.success()
+                createFile(applicationContext, data)
+
+                Result.success(workDataOf(TIME_KEY to getFormattedTime()))
             } catch (throwable: Throwable) {
                 Result.failure()
             }
