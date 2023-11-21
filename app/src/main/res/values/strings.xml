@@ -1,3 +1,4 @@
 <resources>
 	<string name="app_name">WorkManager</string>
+	<string name="create_file">Create file</string>
 </resources>
