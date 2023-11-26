@@ -35,10 +35,16 @@ fun FileScreen(viewModel: FileViewModel = koinViewModel()) {
             label = { Text(stringResource(R.string.data_to_save)) },
         )
         Button(
-            modifier = Modifier.padding(bottom = 16.dp),
+            modifier = Modifier.padding(bottom = 8.dp),
             onClick = viewModel::createFile,
         ) {
             Text(stringResource(R.string.create_file))
+        }
+        Button(
+            modifier = Modifier.padding(bottom = 8.dp),
+            onClick = viewModel::deleteFile,
+        ) {
+            Text(stringResource(R.string.delete_file))
         }
     }
 }

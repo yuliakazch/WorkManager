@@ -21,4 +21,10 @@ class FileViewModel(private val fileRepository: FileRepository) : ViewModel() {
     fun changeData(data: String) {
         _data.value = data
     }
+
+    fun deleteFile() {
+        viewModelScope.launch {
+            fileRepository.delete()
+        }
+    }
 }
