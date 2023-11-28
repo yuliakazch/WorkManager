@@ -1,5 +1,6 @@
 package com.yuliakazachok.workmanager.data.repository
 
+import androidx.work.Constraints
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -23,9 +24,13 @@ class FileRepositoryImpl(private val workManager: WorkManager) : FileRepository 
             .setInputData(workDataOf(DATA_KEY to data))
         val createFileBuilder = OneTimeWorkRequestBuilder<CreateFileWorker>()
 
+        val constraintsForCreateFile = Constraints.Builder()
+            .setRequiresBatteryNotLow(true)
+            .build()
+
         workManager.beginUniqueWork(CREATE_FILE_WORK_NAME, ExistingWorkPolicy.REPLACE, deleteFileBuilder.build())
             .then(formOutputDataBuilder.build())
-            .then(createFileBuilder.build())
+            .then(createFileBuilder.setConstraints(constraintsForCreateFile).build())
             .enqueue()
     }
 
