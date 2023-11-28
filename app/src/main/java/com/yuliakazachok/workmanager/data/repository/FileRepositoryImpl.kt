@@ -17,7 +17,7 @@ class FileRepositoryImpl(private val workManager: WorkManager) : FileRepository 
         const val CREATE_FILE_WORK_NAME = "createFileWork"
     }
 
-    override suspend fun create(data: String) {
+    override fun create(data: String) {
         val deleteFileBuilder = OneTimeWorkRequestBuilder<DeleteFileWorker>()
         val formOutputDataBuilder = OneTimeWorkRequestBuilder<FormOutputDataWorker>()
             .setInputData(workDataOf(DATA_KEY to data))
@@ -29,9 +29,13 @@ class FileRepositoryImpl(private val workManager: WorkManager) : FileRepository 
             .enqueue()
     }
 
-    override suspend fun delete() {
+    override fun delete() {
         val deleteFileBuilder = OneTimeWorkRequestBuilder<DeleteFileWorker>()
 
         workManager.enqueue(deleteFileBuilder.build())
+    }
+
+    override fun cancelCreating() {
+        workManager.cancelUniqueWork(CREATE_FILE_WORK_NAME)
     }
 }

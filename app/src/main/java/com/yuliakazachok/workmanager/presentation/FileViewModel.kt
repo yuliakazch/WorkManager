@@ -1,11 +1,9 @@
 package com.yuliakazachok.workmanager.presentation
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.yuliakazachok.workmanager.domain.repository.FileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class FileViewModel(private val fileRepository: FileRepository) : ViewModel() {
 
@@ -13,9 +11,7 @@ class FileViewModel(private val fileRepository: FileRepository) : ViewModel() {
     val data: StateFlow<String> = _data
 
     fun createFile() {
-        viewModelScope.launch {
-            fileRepository.create(_data.value)
-        }
+        fileRepository.create(_data.value)
     }
 
     fun changeData(data: String) {
@@ -23,8 +19,10 @@ class FileViewModel(private val fileRepository: FileRepository) : ViewModel() {
     }
 
     fun deleteFile() {
-        viewModelScope.launch {
-            fileRepository.delete()
-        }
+        fileRepository.delete()
+    }
+
+    fun cancelCreatingFile() {
+        fileRepository.cancelCreating()
     }
 }

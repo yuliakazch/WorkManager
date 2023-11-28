@@ -2,6 +2,7 @@ package com.yuliakazachok.workmanager.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -34,11 +35,20 @@ fun FileScreen(viewModel: FileViewModel = koinViewModel()) {
             onValueChange = viewModel::changeData,
             label = { Text(stringResource(R.string.data_to_save)) },
         )
-        Button(
+        Row(
             modifier = Modifier.padding(bottom = 8.dp),
-            onClick = viewModel::createFile,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Text(stringResource(R.string.create_file))
+            Button(
+                onClick = viewModel::createFile,
+            ) {
+                Text(stringResource(R.string.create_file))
+            }
+            Button(
+                onClick = viewModel::cancelCreatingFile,
+            ) {
+                Text(stringResource(R.string.cancel))
+            }
         }
         Button(
             modifier = Modifier.padding(bottom = 8.dp),
