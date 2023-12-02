@@ -5,4 +5,6 @@ const val OUTPUT_DATA_KEY = "TIME_KEY"
 
 const val FILE_NAME = "app_file"
 
+const val NOTIFICATION_ID = 1
+
 const val DELAY_TIME_MILLIS = 5000L

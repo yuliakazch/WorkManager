@@ -3,6 +3,7 @@ package com.yuliakazachok.workmanager.data.repository
 import androidx.work.Constraints
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.yuliakazachok.workmanager.DATA_KEY
@@ -36,6 +37,7 @@ class FileRepositoryImpl(private val workManager: WorkManager) : FileRepository 
 
     override fun delete() {
         val deleteFileBuilder = OneTimeWorkRequestBuilder<DeleteFileWorker>()
+            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
 
         workManager.enqueue(deleteFileBuilder.build())
     }

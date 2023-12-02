@@ -1,7 +1,10 @@
 <resources>
 	<string name="app_name">WorkManager</string>
+	<string name="cancel">Cancel</string>
 	<string name="create_file">Create file</string>
 	<string name="data_to_save">Data to save</string>
 	<string name="delete_file">Delete file</string>
-	<string name="cancel">Cancel</string>
+	<string name="notification_channel_id">DeleteFileNotificationChannelId</string>
+	<string name="notification_channel_name">Channel Name</string>
+	<string name="notification_title">Deleting file</string>
 </resources>
