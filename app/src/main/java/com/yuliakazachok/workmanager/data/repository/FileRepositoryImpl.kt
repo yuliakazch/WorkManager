@@ -1,5 +1,6 @@
 package com.yuliakazachok.workmanager.data.repository
 
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
@@ -7,6 +8,7 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
+import com.yuliakazachok.workmanager.BACKOFF_DELAY_MILLIS
 import com.yuliakazachok.workmanager.DATA_KEY
 import com.yuliakazachok.workmanager.DELAY_INITIAL_MINUTES
 import com.yuliakazachok.workmanager.PERIODIC_INTERVAL_MINUTES
@@ -54,6 +56,7 @@ class FileRepositoryImpl(private val workManager: WorkManager) : FileRepository 
     override fun updatePeriodic() {
         val updateFileBuilder = PeriodicWorkRequestBuilder<UpdateFileWorker>(PERIODIC_INTERVAL_MINUTES, TimeUnit.MINUTES)
             .setInitialDelay(DELAY_INITIAL_MINUTES, TimeUnit.MINUTES)
+            .setBackoffCriteria(BackoffPolicy.LINEAR, BACKOFF_DELAY_MILLIS, TimeUnit.MILLISECONDS)
 
         workManager.enqueue(updateFileBuilder.build())
     }

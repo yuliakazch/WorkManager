@@ -22,16 +22,18 @@ class UpdateFileWorker(appContext: Context, params: WorkerParameters) : Coroutin
                 delay(DELAY_TIME_MILLIS)
 
                 updateFile(applicationContext, formattedTime)
-                Result.success()
             } catch (throwable: Throwable) {
                 Result.failure()
             }
         }
 
-    private fun updateFile(applicationContext: Context, formattedTime: String) {
+    private fun updateFile(applicationContext: Context, formattedTime: String): Result {
         val file = File(applicationContext.filesDir, FILE_NAME)
-        if (file.exists()) {
+        return if (file.exists()) {
             file.appendText("\n" + formattedTime)
+            Result.success()
+        } else {
+            Result.retry()
         }
     }
 }
