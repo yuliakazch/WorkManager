@@ -7,4 +7,6 @@ interface FileRepository {
     fun delete()
 
     fun cancelCreating()
+
+    fun updatePeriodic()
 }

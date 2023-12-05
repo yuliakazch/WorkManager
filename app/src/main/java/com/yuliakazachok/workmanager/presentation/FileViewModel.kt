@@ -25,4 +25,8 @@ class FileViewModel(private val fileRepository: FileRepository) : ViewModel() {
     fun cancelCreatingFile() {
         fileRepository.cancelCreating()
     }
+
+    fun updateFile() {
+        fileRepository.updatePeriodic()
+    }
 }

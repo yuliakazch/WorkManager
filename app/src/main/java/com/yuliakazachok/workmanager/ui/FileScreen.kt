@@ -35,6 +35,7 @@ fun FileScreen(viewModel: FileViewModel = koinViewModel()) {
             onValueChange = viewModel::changeData,
             label = { Text(stringResource(R.string.data_to_save)) },
         )
+
         Row(
             modifier = Modifier.padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -50,6 +51,14 @@ fun FileScreen(viewModel: FileViewModel = koinViewModel()) {
                 Text(stringResource(R.string.cancel))
             }
         }
+
+        Button(
+            modifier = Modifier.padding(bottom = 8.dp),
+            onClick = viewModel::updateFile,
+        ) {
+            Text(stringResource(R.string.update_file_periodic))
+        }
+
         Button(
             modifier = Modifier.padding(bottom = 8.dp),
             onClick = viewModel::deleteFile,

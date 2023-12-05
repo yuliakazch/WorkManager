@@ -4,13 +4,18 @@ import androidx.work.Constraints
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
+import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.yuliakazachok.workmanager.DATA_KEY
+import com.yuliakazachok.workmanager.DELAY_INITIAL_MINUTES
+import com.yuliakazachok.workmanager.PERIODIC_INTERVAL_MINUTES
 import com.yuliakazachok.workmanager.worker.CreateFileWorker
 import com.yuliakazachok.workmanager.domain.repository.FileRepository
 import com.yuliakazachok.workmanager.worker.DeleteFileWorker
 import com.yuliakazachok.workmanager.worker.FormOutputDataWorker
+import com.yuliakazachok.workmanager.worker.UpdateFileWorker
+import java.util.concurrent.TimeUnit
 
 class FileRepositoryImpl(private val workManager: WorkManager) : FileRepository {
 
@@ -44,5 +49,12 @@ class FileRepositoryImpl(private val workManager: WorkManager) : FileRepository 
 
     override fun cancelCreating() {
         workManager.cancelUniqueWork(CREATE_FILE_WORK_NAME)
+    }
+
+    override fun updatePeriodic() {
+        val updateFileBuilder = PeriodicWorkRequestBuilder<UpdateFileWorker>(PERIODIC_INTERVAL_MINUTES, TimeUnit.MINUTES)
+            .setInitialDelay(DELAY_INITIAL_MINUTES, TimeUnit.MINUTES)
+
+        workManager.enqueue(updateFileBuilder.build())
     }
 }
