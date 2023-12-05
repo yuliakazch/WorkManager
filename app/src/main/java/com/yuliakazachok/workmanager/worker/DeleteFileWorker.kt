@@ -10,7 +10,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.yuliakazachok.workmanager.FILE_NAME
-import com.yuliakazachok.workmanager.NOTIFICATION_ID
+import com.yuliakazachok.workmanager.DELETING_FILE_NOTIFICATION_ID
 import com.yuliakazachok.workmanager.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -33,12 +33,12 @@ class DeleteFileWorker(appContext: Context, params: WorkerParameters) : Coroutin
         }
 
     override suspend fun getForegroundInfo(): ForegroundInfo =
-        ForegroundInfo(NOTIFICATION_ID, createNotification())
+        ForegroundInfo(DELETING_FILE_NOTIFICATION_ID, createNotification())
 
     private fun createNotification(): Notification {
         val channelId = applicationContext.getString(R.string.notification_channel_id)
         val channelName = applicationContext.getString(R.string.notification_channel_name)
-        val title = applicationContext.getString(R.string.notification_title)
+        val title = applicationContext.getString(R.string.notification_title_deleting_file)
 
         val builder = Builder(applicationContext, channelId)
             .setContentTitle(title)

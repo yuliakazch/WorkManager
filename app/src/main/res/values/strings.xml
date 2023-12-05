@@ -4,8 +4,9 @@
 	<string name="create_file">Create file</string>
 	<string name="data_to_save">Data to save</string>
 	<string name="delete_file">Delete file</string>
-	<string name="notification_channel_id">DeleteFileNotificationChannelId</string>
+	<string name="notification_channel_id">NotificationChannelId</string>
 	<string name="notification_channel_name">Channel Name</string>
-	<string name="notification_title">Deleting file</string>
+	<string name="notification_title_creating_file">Creating file</string>
+	<string name="notification_title_deleting_file">Deleting file</string>
 	<string name="update_file_periodic">Update file periodic</string>
 </resources>
