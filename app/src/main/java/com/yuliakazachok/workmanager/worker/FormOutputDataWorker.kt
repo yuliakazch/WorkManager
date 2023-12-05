@@ -6,7 +6,7 @@ import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.yuliakazachok.workmanager.DATA_KEY
 import com.yuliakazachok.workmanager.DELAY_TIME_MILLIS
-import com.yuliakazachok.workmanager.OUTPUT_DATA_KEY
+import com.yuliakazachok.workmanager.TIME_KEY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -24,7 +24,7 @@ class FormOutputDataWorker(appContext: Context, params: WorkerParameters) : Coro
 
                 delay(DELAY_TIME_MILLIS)
 
-                val outputData = workDataOf(OUTPUT_DATA_KEY to getOutputText(data, time))
+                val outputData = workDataOf(TIME_KEY to getOutputText(data, time))
                 Result.success(outputData)
             } catch (throwable: Throwable) {
                 Result.failure()
